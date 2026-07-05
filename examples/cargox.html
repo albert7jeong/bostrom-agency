@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CargoX Group — Beyond Borders and Limits</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23ffda00'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial,sans-serif' font-size='40' font-weight='900' fill='%23002a35' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<style>
+  @font-face{
+    font-family:'Barlow Condensed';
+    src:url('../fonts/BarlowCondensed-800.woff2') format('woff2');
+    font-weight:800;
+    font-style:normal;
+    font-display:swap;
+  }
+
+  :root{
+    --dark:#002a35;
+    --yellow:#ffda00;
+    --menu:#6682c2;
+    --expo:cubic-bezier(0.16,1,0.3,1);
+  }
+
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;}
+  body{
+    font-family:Helvetica,Arial,sans-serif;
+    color:#fff;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 52%, rgba(0,0,0,.38) 100%),
+      radial-gradient(ellipse at 50% 30%, rgba(255,255,255,.05), rgba(255,255,255,0) 60%),
+      linear-gradient(160deg,#06323f 0%,#0a4a5c 100%);
+  }
+
+  /* ---------- background video ---------- */
+  #bgvid{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;z-index:0;
+  }
+  body.no-video #bgvid{display:none;}
+
+  /* ---------- layout ---------- */
+  #hero{
+    position:relative;height:100vh;height:100dvh;
+    display:flex;flex-direction:column;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:relative;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:clamp(16px,4vh,40px) clamp(16px,3vw,48px) 0;
+  }
+  .logo{
+    font-family:'Barlow Condensed',Helvetica,Arial,sans-serif;
+    font-weight:800;
+    font-size:clamp(22px,min(3.15vh,2.32vw),32px);
+    line-height:.9;text-transform:uppercase;letter-spacing:-.01em;
+    color:#fff;text-decoration:none;display:block;
+  }
+  .logo .l2{color:var(--yellow);display:block;}
+
+  nav.desk{display:flex;gap:clamp(20px,3.8vw,52px);}
+  nav.desk a{
+    display:inline-flex;align-items:center;gap:6px;
+    color:#fff;text-decoration:none;
+    font-size:clamp(15px,min(1.97vh,1.45vw),20px);
+    transition:color .3s var(--expo),transform .3s var(--expo);
+  }
+  nav.desk a svg{width:.75em;height:.75em;flex:none;}
+  nav.desk a:hover{color:var(--yellow);transform:translateX(2px);}
+
+  #burger{
+    display:none;background:none;border:0;cursor:pointer;color:#fff;
+    width:28px;height:28px;padding:0;position:relative;z-index:60;
+  }
+  #burger svg{width:28px;height:28px;display:block;}
+  #burger .ic-x{display:none;}
+  body.menu-open #burger .ic-menu{display:none;}
+  body.menu-open #burger .ic-x{display:block;}
+
+  #mmenu{
+    position:absolute;inset:0;z-index:40;
+    display:none;flex-direction:column;align-items:center;justify-content:center;
+    gap:32px;background:var(--menu);
+  }
+  body.menu-open #mmenu{display:flex;}
+  #mmenu button{
+    background:none;border:0;cursor:pointer;
+    color:#fff;font-family:Helvetica,Arial,sans-serif;font-size:24px;
+    opacity:0;
+  }
+  body.menu-open #mmenu button{animation:mFade .45s var(--expo) both;}
+  body.menu-open #mmenu button:nth-child(1){animation-delay:.05s;}
+  body.menu-open #mmenu button:nth-child(2){animation-delay:.15s;}
+  body.menu-open #mmenu button:nth-child(3){animation-delay:.25s;}
+  @keyframes mFade{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+
+  @media (max-width:767.98px){
+    nav.desk{display:none;}
+    #burger{display:block;}
+  }
+
+  /* ---------- main ---------- */
+  main{
+    position:relative;z-index:10;flex:1;min-height:0;
+    display:grid;grid-template-columns:1fr;
+    gap:clamp(20px,4vh,48px);
+    padding:clamp(24px,8vh,120px) clamp(16px,3vw,48px) 0;
+    align-content:start;
+  }
+  @media (min-width:1024px){
+    main{grid-template-columns:2.17fr 1fr;}
+  }
+
+  /* headline */
+  .headline{overflow:clip;}
+  .hl{
+    font-family:'Barlow Condensed',Helvetica,Arial,sans-serif;
+    font-weight:800;
+    font-size:clamp(86px,min(14vh,11vw),220px);
+    line-height:.78;text-transform:uppercase;letter-spacing:-.01em;
+    color:#fff;white-space:nowrap;
+  }
+  .hl.l2{color:var(--dark);margin-left:.524em;}
+
+  /* right column */
+  .right{display:flex;flex-direction:column;gap:clamp(16px,2.66vh,32px);min-width:0;}
+
+  .tagline{
+    font-size:clamp(24px,min(4vh,3vw),52px);
+    line-height:.9;letter-spacing:-.02em;color:var(--dark);
+  }
+  .tl{display:block;}
+  .tl.l2{margin-left:1.5em;}
+  .w{display:inline-block;overflow:hidden;vertical-align:top;}
+  .wi{display:inline-block;}
+
+  /* ---------- map ---------- */
+  .map{position:relative;aspect-ratio:435/263;}
+  .map>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
+  .map-fallback{
+    display:none;position:absolute;inset:0;border-radius:16px;
+    background-color:rgba(255,255,255,.06);
+    background-image:radial-gradient(rgba(255,255,255,.28) 1px,transparent 1.4px);
+    background-size:11px 11px;
+  }
+  .map.img-failed>img{display:none;}
+  .map.img-failed .map-fallback{display:block;}
+
+  .routes{
+    position:absolute;pointer-events:none;
+    left:13.8%;top:24.3%;width:68.7%;aspect-ratio:299/143;
+    overflow:visible;
+  }
+  .routes path.rp{
+    stroke:#FFDA00;stroke-width:2.5;fill:none;
+    stroke-dasharray:1;stroke-dashoffset:0;
+  }
+  .dot{transform-box:fill-box;transform-origin:center;}
+
+  /* transport icons */
+  .ti{
+    position:absolute;width:14.9%;aspect-ratio:1;
+  }
+  .ti-c{
+    width:100%;height:100%;border-radius:50%;background:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .35s var(--expo);
+  }
+  .ti-c img{width:100%;height:100%;object-fit:contain;padding:18%;display:block;}
+  .ti-ship{left:26%;top:28.9%;}
+  .ti-car{left:70.8%;top:15.6%;}
+  .ti-car .ti-c{transform:rotate(9.73deg);}
+  .ti-car:hover .ti-c{transform:translateY(-4px) rotate(9.73deg) scale(1.12);}
+  .ti-plane{left:55.2%;top:52.1%;}
+  .ti-plane .ti-c{transform:rotate(180deg) scaleY(-1);}
+  .ti-plane:hover .ti-c{transform:translateY(-4px) rotate(180deg) scaleY(-1) scale(1.12);}
+  .ti-ship:hover .ti-c{transform:translateY(-4px) scale(1.12);}
+
+  .map-desc{
+    position:absolute;left:55.6%;top:89%;width:44%;
+    font-size:clamp(12px,min(1.6vh,1.2vw),20px);
+    color:var(--dark);line-height:1.25;
+  }
+  @media (max-width:639.98px){.map-desc{display:none;}}
+
+  /* ---------- footer ---------- */
+  footer{
+    position:relative;z-index:10;
+    display:flex;flex-direction:column;gap:20px;
+    justify-content:space-between;align-items:stretch;
+    padding:clamp(12px,3vh,32px) clamp(16px,3vw,48px) clamp(16px,5vh,66px);
+  }
+  @media (min-width:640px){
+    footer{flex-direction:row;align-items:flex-end;gap:24px;}
+  }
+
+  .stat{display:flex;align-items:center;gap:clamp(12px,1.6vw,24px);}
+  .stat .num{
+    font-family:'Barlow Condensed',Helvetica,Arial,sans-serif;font-weight:800;
+    font-size:clamp(52px,min(8vh,6vw),98px);
+    line-height:.9;color:var(--yellow);text-transform:uppercase;
+  }
+  .stat .desc{
+    color:#fff;font-size:clamp(16px,min(1.6vh,1.2vw),20px);line-height:1.25;
+  }
+  .stat .cargo{
+    flex:none;width:clamp(40px,min(5.5vh,4vw),67px);height:clamp(40px,min(5.5vh,4vw),67px);
+    border-radius:50%;background:#fff;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .stat .cargo img{width:100%;height:100%;object-fit:contain;padding:20%;display:block;}
+
+  /* CTA */
+  .cta{
+    position:relative;display:block;text-decoration:none;flex:none;
+    width:100%;height:56px;
+    transition:transform .35s var(--expo);
+  }
+  @media (min-width:640px){
+    .cta{width:auto;height:clamp(48px,min(6vh,4.5vw),68px);aspect-ratio:434/68;}
+  }
+  .cta:hover{transform:translateY(-2px) scale(1.08);}
+  .cta:active{transform:scale(.97);}
+  .cta .pill{position:absolute;inset:0;width:100%;height:100%;display:block;}
+  .cta .label{
+    position:absolute;left:0;top:0;bottom:0;width:79.7%;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--dark);font-size:clamp(14px,min(1.6vh,1.2vw),20px);font-weight:600;
+  }
+  .cta .arrow{
+    position:absolute;left:92.4%;top:50%;height:34%;width:auto;
+    transform:translate(-50%,-50%) rotate(-135deg);
+    transition:transform .35s var(--expo);
+  }
+  .cta:hover .arrow{transform:translate(-50%,-50%) rotate(-90deg);}
+
+  /* =========================================================
+     ENTRANCE CHOREOGRAPHY — gated on body.anim
+     ========================================================= */
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:none;}}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+  @keyframes slideL{from{transform:translateX(-900px);}to{transform:none;}}
+  @keyframes slideR{from{transform:translateX(900px);}to{transform:none;}}
+  @keyframes wordUp{from{transform:translateY(100%) rotateX(45deg);opacity:0;}to{transform:none;opacity:1;}}
+  @keyframes drawRoute{from{stroke-dashoffset:1;}to{stroke-dashoffset:0;}}
+  @keyframes popIn{
+    0%{transform:scale(0);opacity:0;}
+    60%{transform:scale(1.18);opacity:1;}
+    80%{transform:scale(.94);}
+    100%{transform:scale(1);opacity:1;}
+  }
+  @keyframes ctaIn{from{opacity:0;transform:translateX(60px);}to{opacity:1;transform:none;}}
+
+  body.anim .logo{animation:fadeDown .6s var(--expo) both;}
+  body.anim nav.desk a{animation:fadeDown .5s var(--expo) both;animation-delay:var(--d,.15s);}
+  body.anim .hl.l1{animation:slideL .85s var(--expo) both;}
+  body.anim .hl.l2{animation:slideR .85s var(--expo) .13s both;}
+  body.anim .hl.l3{animation:slideL .85s var(--expo) .26s both;}
+  body.anim .wi{animation:wordUp .6s var(--expo) both;animation-delay:var(--d,.3s);}
+  body.anim .routes path.rp{animation:drawRoute 1.1s var(--expo) both;animation-delay:var(--d,.55s);}
+  body.anim .route-arrow{animation:fadeIn .3s var(--expo) both;animation-delay:var(--d,1s);}
+  body.anim .dot{animation:popIn .55s var(--expo) both;animation-delay:var(--d,1.6s);}
+  body.anim .ti{animation:popIn .6s var(--expo) both;animation-delay:var(--d,2.1s);}
+  body.anim .map-desc{animation:fadeIn .7s var(--expo) 2.4s both;}
+  body.anim .stat{animation:fadeUp .7s var(--expo) .45s both;}
+  body.anim .cta{animation:ctaIn .7s var(--expo) .5s both;}
+
+  body.loop #bostrom-badge{display:none !important;}
+
+  /* ---------- reduced motion ---------- */
+  /* below desktop: let the page scroll instead of cramming one viewport */
+  @media (max-width:1023.98px){
+    html,body{overflow:auto;height:auto;}
+    #hero{height:auto;min-height:100svh;}
+    #bgvid{position:fixed;}
+    .hl{font-size:clamp(54px,16.5vw,120px);}
+    .tagline{color:#fff;text-shadow:0 2px 18px rgba(0,42,53,.5);}
+    .map-desc{color:#fff;}
+    main{align-content:start;row-gap:clamp(24px,5vh,40px);}
+    footer{margin-top:clamp(24px,6vh,48px);}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    body.anim .logo,
+    body.anim nav.desk a,
+    body.anim .hl.l1,body.anim .hl.l2,body.anim .hl.l3,
+    body.anim .wi,
+    body.anim .routes path.rp,
+    body.anim .route-arrow,
+    body.anim .dot,
+    body.anim .ti,
+    body.anim .map-desc,
+    body.anim .stat,
+    body.anim .cta,
+    body.menu-open #mmenu button{animation:none !important;opacity:1;}
+    .route-arrow{display:none;}
+    .cta,.ti-c,nav.desk a,.cta .arrow{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+<div id="hero">
+
+  <video id="bgvid" autoplay muted loop playsinline preload="auto">
+    <source src="assets/cargox.mp4" type="video/mp4">
+  </video>
+
+  <header>
+    <a class="logo" href="#">
+      <span class="l1">Cargox</span>
+      <span class="l2">Group</span>
+    </a>
+
+    <nav class="desk" aria-label="Main">
+      <a href="#" style="--d:.15s">Services
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+      <a href="#" style="--d:.25s">Industries
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+      <a href="#" style="--d:.35s">Company
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </nav>
+
+    <button id="burger" aria-label="Toggle menu" aria-expanded="false">
+      <svg class="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      <svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </header>
+
+  <div id="mmenu" aria-hidden="true">
+    <button type="button">Services</button>
+    <button type="button">Industries</button>
+    <button type="button">Company</button>
+  </div>
+
+  <main>
+    <div class="headline">
+      <div class="hl l1">Beyond</div>
+      <div class="hl l2">Borders</div>
+      <div class="hl l3">And Limits</div>
+    </div>
+
+    <div class="right">
+      <div class="tagline">
+        <span class="tl l1"><span class="w"><span class="wi" style="--d:.3s">Logistics</span></span></span>
+        <span class="tl l2"><span class="w"><span class="wi" style="--d:.5s">shaped</span></span> <span class="w"><span class="wi" style="--d:.58s">by</span></span> <span class="w"><span class="wi" style="--d:.66s">scale</span></span></span>
+        <span class="tl l3"><span class="w"><span class="wi" style="--d:.7s">powered</span></span> <span class="w"><span class="wi" style="--d:.78s">by</span></span> <span class="w"><span class="wi" style="--d:.86s">precision</span></span></span>
+      </div>
+
+      <div class="map" id="mapbox">
+        <img src="assets/cargox-map.png" alt="World map with logistics routes" onerror="document.getElementById('mapbox').classList.add('img-failed')">
+        <div class="map-fallback" aria-hidden="true"></div>
+
+        <svg class="routes" viewBox="0 0 299.037 142.509" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path id="rp0" class="rp" pathLength="1" style="--d:.55s" d="M128.161 74.6764C79.9989 130.001 71.9994 46.0005 20.9815 111.737"/>
+          <path id="rp1" class="rp" pathLength="1" style="--d:.67s" d="M216.999 9.99985C260.499 12.4998 222.499 71.9998 291.999 58.9998"/>
+          <path id="rp2" class="rp" pathLength="1" style="--d:.79s" d="M130.102 70.9998C144.499 -32.0002 183.852 70.2739 219.999 3.99985"/>
+          <path id="rp3" class="rp" pathLength="1" style="--d:.91s" d="M14.4999 16.9998C111 20.9998 -53.0003 73.4998 21.4999 107"/>
+
+          <polygon class="route-arrow" style="--d:1.05s" points="0,-4 8,0 0,4" fill="#FFDA00">
+            <animateMotion rotate="auto" dur="2.5s" repeatCount="indefinite"><mpath href="#rp0"/></animateMotion>
+          </polygon>
+          <polygon class="route-arrow" style="--d:1.17s" points="0,-4 8,0 0,4" fill="#FFDA00">
+            <animateMotion rotate="auto" dur="2.8s" repeatCount="indefinite"><mpath href="#rp1"/></animateMotion>
+          </polygon>
+          <polygon class="route-arrow" style="--d:1.29s" points="0,-4 8,0 0,4" fill="#FFDA00">
+            <animateMotion rotate="auto" dur="3.1s" repeatCount="indefinite"><mpath href="#rp2"/></animateMotion>
+          </polygon>
+          <polygon class="route-arrow" style="--d:1.41s" points="0,-4 8,0 0,4" fill="#FFDA00">
+            <animateMotion rotate="auto" dur="3.4s" repeatCount="indefinite"><mpath href="#rp3"/></animateMotion>
+          </polygon>
+
+          <g class="dot" style="--d:1.6s"><circle cx="9.519" cy="15.519" r="9.519" fill="#FFDA00"/><circle cx="9.519" cy="15.519" r="3.389" fill="#002A35"/></g>
+          <g class="dot" style="--d:1.7s"><circle cx="289.519" cy="59.518" r="9.519" fill="#FFDA00"/><circle cx="289.519" cy="59.518" r="3.389" fill="#002A35"/></g>
+          <g class="dot" style="--d:1.8s"><circle cx="220.519" cy="9.519" r="9.519" fill="#FFDA00"/><circle cx="220.519" cy="9.519" r="3.389" fill="#002A35"/></g>
+          <g class="dot" style="--d:1.9s"><circle cx="125.518" cy="78.519" r="9.519" fill="#FFDA00"/><circle cx="125.518" cy="78.519" r="3.389" fill="#002A35"/></g>
+          <g class="dot" style="--d:2s"><circle cx="19.519" cy="104.519" r="9.519" fill="#FFDA00"/><circle cx="19.519" cy="104.519" r="3.389" fill="#002A35"/></g>
+        </svg>
+
+        <div class="ti ti-ship" style="--d:2.1s"><div class="ti-c"><img src="assets/icon-ship.png" alt="Sea freight" onerror="this.closest('.ti').style.display='none'"></div></div>
+        <div class="ti ti-car" style="--d:2.2s"><div class="ti-c"><img src="assets/icon-car.png" alt="Road freight" onerror="this.closest('.ti').style.display='none'"></div></div>
+        <div class="ti ti-plane" style="--d:2.3s"><div class="ti-c"><img src="assets/icon-plane.png" alt="Air freight" onerror="this.closest('.ti').style.display='none'"></div></div>
+
+        <div class="map-desc">We ensure full transparency at every stage to build trust and drive results.</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="stat">
+      <div class="num">3M+</div>
+      <div class="desc">tons of cargo<br>successfully delivered<br>without delays</div>
+      <div class="cargo"><img src="assets/icon-cargo.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+    </div>
+
+    <a class="cta" href="#">
+      <svg class="pill" viewBox="0 0 434.001 68" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path fill="#ffda00" d="M316 0C329.08 0 340.435 7.38674 346.121 18.2162C348.618 22.9736 353.086 26.8535 358.459 26.8535H359.252C364.667 26.8535 369.155 22.9169 371.63 18.1007C377.159 7.34039 388.205 0.00015843 400.931 0C419.195 0 434.001 15.1191 434.001 33.7695L433.99 34.6416C433.537 52.8891 418.909 67.5391 400.931 67.5391C387.96 67.5389 376.734 59.9132 371.317 48.8128C368.923 43.9077 364.427 39.873 358.969 39.873C353.492 39.873 348.986 43.9356 346.589 48.8605C341.074 60.1913 329.449 68 316 68H34.001C15.2233 68 0 52.7777 0 34C0 15.2223 15.2233 0 34.001 0H316ZM400.931 2.44141C384.063 2.44163 370.303 16.419 370.303 33.7695C370.303 51.1201 384.063 65.0974 400.931 65.0977C417.798 65.0977 431.56 51.1202 431.56 33.7695C431.56 16.4189 417.798 2.44141 400.931 2.44141Z"/>
+      </svg>
+      <span class="label">Get in touch</span>
+      <svg class="arrow" viewBox="0 0 16.89 20.37" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M8.445 18.9V2.2M1.6 9.05L8.445 1.75L15.29 9.05" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var body=document.body;
+  var LOOP=location.search.indexOf('loop=1')!==-1;
+  if(LOOP)body.classList.add('loop');
+
+  /* start entrance choreography immediately (not gated on video) */
+  body.classList.add('anim');
+
+  /* preview loop mode: replay every ~10s */
+  if(LOOP){
+    setInterval(function(){
+      body.classList.remove('anim');
+      void body.offsetWidth; /* reflow to restart animations */
+      body.classList.add('anim');
+      /* restart SMIL arrow motion too */
+      var svg=document.querySelector('.routes');
+      if(svg&&svg.setCurrentTime)try{svg.setCurrentTime(0);}catch(e){}
+    },10000);
+  }
+
+  /* video fallback: gradient if error or no canplay within 4s */
+  var v=document.getElementById('bgvid'),ok=false;
+  function fail(){body.classList.add('no-video');}
+  v.addEventListener('canplay',function(){ok=true;body.classList.remove('no-video');});
+  v.addEventListener('error',fail);
+  var src=v.querySelector('source');
+  if(src)src.addEventListener('error',fail);
+  setTimeout(function(){if(!ok)fail();},4000);
+
+  /* mobile menu */
+  var burger=document.getElementById('burger');
+  var mmenu=document.getElementById('mmenu');
+  function closeMenu(){
+    body.classList.remove('menu-open');
+    burger.setAttribute('aria-expanded','false');
+    mmenu.setAttribute('aria-hidden','true');
+  }
+  burger.addEventListener('click',function(){
+    var open=body.classList.toggle('menu-open');
+    burger.setAttribute('aria-expanded',open?'true':'false');
+    mmenu.setAttribute('aria-hidden',open?'false':'true');
+  });
+  mmenu.querySelectorAll('button').forEach(function(b){b.addEventListener('click',closeMenu);});
+})();
+</script>
+
+<a href="../index.html#start" id="bostrom-badge" style="position:fixed;left:16px;bottom:16px;z-index:999;background:#D4F94F;color:#0A0A08;font:600 11px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:999px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.25);display:inline-flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:50%;background:#0A0A08"></span>Draft by Bostrom — get yours free</a>
+<script>if(/(^|[?&])loop=1/.test(location.search)){var _bb=document.getElementById('bostrom-badge');if(_bb)_bb.style.display='none';}</script>
+</body>
+</html>

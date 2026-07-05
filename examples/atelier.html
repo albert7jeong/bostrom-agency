@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>atelier — Crafted digital experiences</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2232%22%20fill%3D%22%23000%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2246%22%20font-family%3D%22Georgia%2C%20'Times%20New%20Roman'%2C%20serif%22%20font-style%3D%22italic%22%20font-size%3D%2242%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3Ea%3C%2Ftext%3E%3C%2Fsvg%3E">
+<style>
+/* ---------- Fonts ---------- */
+@font-face{font-family:"Instrument Serif";src:url("../fonts/InstrumentSerif-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url("../fonts/InstrumentSerif-400-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Barlow";src:url("../fonts/Barlow-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Barlow";src:url("../fonts/Barlow-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Barlow";src:url("../fonts/Barlow-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto}
+body{background:#000;color:#fff;font-family:"Barlow",system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img,video{max-width:none}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-style:italic}
+svg.ic{display:block;flex:none}
+
+/* ---------- Liquid glass ---------- */
+.liquid-glass,.liquid-glass-strong{position:relative;overflow:hidden;background:rgba(255,255,255,0.01);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);box-shadow:inset 0 1px 1px rgba(255,255,255,.1)}
+.liquid-glass-strong{-webkit-backdrop-filter:blur(50px);backdrop-filter:blur(50px);box-shadow:4px 4px 4px rgba(0,0,0,.05),inset 0 1px 1px rgba(255,255,255,.1)}
+.liquid-glass::before,.liquid-glass-strong::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.15) 80%,rgba(255,255,255,.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none}
+.liquid-glass-strong::before{background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.2) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.2) 80%,rgba(255,255,255,.5) 100%)}
+
+/* ---------- Video + fallback ---------- */
+.bg-video{opacity:0;transition:opacity .5s ease}
+.bg-video.ready{opacity:1}
+.bg-video.failed{display:none}
+.video-fallback{position:absolute;inset:0;z-index:0;background:#0a0a0a;overflow:hidden}
+.video-fallback::before{content:"";position:absolute;inset:-40%;background:
+  radial-gradient(42% 38% at 32% 30%,rgba(120,112,104,.20) 0%,rgba(120,112,104,0) 70%),
+  radial-gradient(50% 46% at 70% 68%,rgba(96,92,88,.14) 0%,rgba(96,92,88,0) 70%),
+  radial-gradient(30% 30% at 55% 22%,rgba(150,140,128,.10) 0%,rgba(150,140,128,0) 70%);
+  animation:drift 26s ease-in-out infinite alternate}
+.video-fallback.subtle::before{opacity:.6;animation-duration:34s}
+.video-fallback::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 110%,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 60%)}
+@keyframes drift{
+  0%{transform:translate(-4%,-3%) scale(1) rotate(0deg)}
+  50%{transform:translate(3%,4%) scale(1.08) rotate(2deg)}
+  100%{transform:translate(-2%,2%) scale(1.02) rotate(-2deg)}
+}
+
+/* ---------- Entrance animations (gated on body.anim) ---------- */
+@keyframes rise{from{filter:blur(10px);opacity:0;transform:translateY(20px)}to{filter:blur(0);opacity:1;transform:translateY(0)}}
+@keyframes blurWord{from{filter:blur(10px);opacity:0;transform:translateY(50px)}to{filter:blur(0);opacity:1;transform:translateY(0)}}
+body.anim .rise{animation:rise .8s ease-out both;animation-delay:var(--d,0s)}
+.blur-word{display:inline-block;margin-right:.28em;will-change:filter,opacity,transform}
+.blur-word:last-child{margin-right:0}
+body.anim .hero-headline .blur-word{animation:blurWord .7s ease-out both;animation-delay:calc(.1s + var(--i)*.1s)}
+.bt-io .blur-word{opacity:1}
+body.anim .bt-io .blur-word{opacity:0;filter:blur(10px);transform:translateY(50px)}
+body.anim .bt-io.in .blur-word{animation:blurWord .7s ease-out both;animation-delay:calc(var(--i)*.1s)}
+body.anim .io-rise{opacity:0;filter:blur(10px);transform:translateY(20px)}
+body.anim .io-rise.in{animation:rise .8s ease-out both;animation-delay:var(--d,0s)}
+
+/* ---------- Navbar ---------- */
+.navbar{position:fixed;top:16px;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding-inline:32px}
+.nav-logo{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1}
+.nav-center{display:none;align-items:center;gap:4px;border-radius:9999px;padding:6px}
+.nav-center a.nav-link{font-size:14px;font-weight:500;color:rgba(255,255,255,.9);padding:8px 12px;border-radius:9999px;transition:color .2s ease}
+.nav-link:hover{color:#fff}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#000;font-size:14px;font-weight:500;padding:8px 14px;border-radius:9999px;transition:transform .2s ease}
+.nav-cta:hover{transform:scale(1.03)}
+.nav-spacer{width:48px;height:48px}
+@media(min-width:768px){.nav-center{display:flex}}
+@media(min-width:1024px){.navbar{padding-inline:64px}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;background:#000}
+@media(min-width:768px){.hero{height:100svh}}
+.hero .bg-video{position:absolute;left:50%;top:0;transform:translateX(-50%);width:120%;height:120%;object-fit:cover;object-position:top;z-index:0}
+.hero-main{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:96px 24px 24px}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;border-radius:9999px;padding:6px 14px 6px 6px}
+.hero-badge .new{background:#fff;color:#000;font-size:11px;font-weight:600;letter-spacing:.02em;padding:3px 8px;border-radius:9999px}
+.hero-badge .txt{font-size:13px;color:rgba(255,255,255,.9)}
+.hero-headline{margin-top:24px;max-width:768px;font-size:60px;line-height:.92;letter-spacing:-.04em;color:#fff}
+@media(min-width:768px){.hero-headline{font-size:72px}}
+@media(min-width:1024px){.hero-headline{font-size:88px}}
+.hero-sub{margin-top:16px;max-width:672px;font-size:14px;line-height:1.35;color:#fff;opacity:.95}
+@media(min-width:768px){.hero-sub{font-size:16px}}
+.hero-ctas{margin-top:24px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.cta-primary{display:inline-flex;align-items:center;gap:8px;border-radius:9999px;padding:10px 20px;font-size:14px;font-weight:500;color:#fff;transition:transform .2s ease}
+.cta-primary:hover{transform:scale(1.03)}
+.cta-ghost{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:#fff;opacity:.95;transition:opacity .2s ease}
+.cta-ghost:hover{opacity:1}
+.hero-stats{margin-top:32px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.stat-card{width:220px;padding:20px;border-radius:20px;text-align:left}
+.stat-card .num{font-size:36px;margin-top:16px;line-height:1;letter-spacing:-.02em}
+.stat-card .cap{font-size:12px;color:rgba(255,255,255,.7);margin-top:6px;line-height:1.4}
+@media(max-width:519px){.stat-card{width:calc(50% - 8px);min-width:148px;padding:16px}.stat-card .num{font-size:30px}}
+.hero-trust{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:16px;padding-bottom:32px;padding-inline:24px}
+.trust-pill{border-radius:9999px;padding:8px 16px;font-size:12px;color:rgba(255,255,255,.8)}
+.trust-names{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+.trust-names span{font-size:24px;line-height:1;opacity:.95;white-space:nowrap}
+@media(min-width:768px){.trust-names{gap:48px}}
+@media(min-width:1024px){.trust-names{gap:64px}.trust-names span{font-size:30px}}
+
+/* ---------- Capabilities ---------- */
+.caps{position:relative;min-height:100svh;overflow:hidden;background:#000}
+.caps .bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.caps-content{position:relative;z-index:10;display:flex;flex-direction:column;min-height:100svh;padding:96px 32px 40px}
+@media(min-width:1024px){.caps-content{padding-inline:80px}}
+.caps-label{font-size:14px;color:rgba(255,255,255,.8);margin-bottom:24px}
+.caps-heading{font-size:60px;line-height:.92;letter-spacing:-.03em;color:#fff}
+@media(min-width:768px){.caps-heading{font-size:72px}}
+@media(min-width:1024px){.caps-heading{font-size:96px}}
+.caps-grid{margin-top:64px;display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:768px){.caps-grid{grid-template-columns:repeat(3,1fr)}}
+.cap-card{border-radius:20px;padding:24px;min-height:360px;display:flex;flex-direction:column}
+.cap-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.cap-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none}
+.cap-tags{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+.cap-tags span{border-radius:9999px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,.9);white-space:nowrap}
+.cap-spacer{flex:1;min-height:48px}
+.cap-bottom{display:flex;flex-direction:column;gap:10px}
+.cap-title{font-size:30px;line-height:1;letter-spacing:-.02em}
+@media(min-width:1024px){.cap-title{font-size:36px}}
+.cap-body{font-size:14px;line-height:1.5;color:rgba(255,255,255,.9);max-width:32ch}
+
+/* ---------- Reduced motion ---------- */
+@media(prefers-reduced-motion:reduce){
+  body.anim .rise,body.anim .hero-headline .blur-word,body.anim .bt-io .blur-word,body.anim .bt-io.in .blur-word,body.anim .io-rise.in{animation:none!important}
+  body.anim .bt-io .blur-word,body.anim .io-rise{opacity:1!important;filter:none!important;transform:none!important}
+  .video-fallback::before{animation:none!important}
+  html{scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <a href="#" class="nav-logo liquid-glass serif" aria-label="atelier home">a</a>
+  <nav class="nav-center liquid-glass" aria-label="Primary">
+    <a class="nav-link" href="#">Work</a>
+    <a class="nav-link" href="#">Studio</a>
+    <a class="nav-link" href="#">Services</a>
+    <a class="nav-link" href="#">Journal</a>
+    <a class="nav-link" href="#">Contact</a>
+    <a class="nav-cta" href="#">Start a Project
+      <svg class="ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+    </a>
+  </nav>
+  <div class="nav-spacer" aria-hidden="true"></div>
+</header>
+
+<!-- ================= SECTION 1 — HERO ================= -->
+<section class="hero" id="top">
+  <div class="video-fallback" aria-hidden="true"></div>
+  <video class="bg-video" id="hero-video" autoplay muted loop playsinline preload="auto" src="assets/agency-hero.mp4" aria-hidden="true"></video>
+
+  <main class="hero-main">
+    <div class="hero-badge liquid-glass rise" style="--d:.4s">
+      <span class="new">New</span>
+      <span class="txt">Booking Q3 2026 engagements — limited capacity</span>
+    </div>
+
+    <h1 class="hero-headline serif" id="hero-headline">
+      <span class="blur-word" style="--i:0">Crafted</span><span class="blur-word" style="--i:1">Digital</span><span class="blur-word" style="--i:2">Experiences</span><span class="blur-word" style="--i:3">Built</span><span class="blur-word" style="--i:4">to</span><span class="blur-word" style="--i:5">Outlast</span><span class="blur-word" style="--i:6">Trends</span>
+    </h1>
+
+    <p class="hero-sub rise" style="--d:.8s">We are a small studio of designers and engineers shaping brand-defining websites for ambitious companies. Precise typography, cinematic motion, and code you can be proud of.</p>
+
+    <div class="hero-ctas rise" style="--d:1.1s">
+      <a href="#" class="cta-primary liquid-glass-strong">Start a Project
+        <svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </a>
+      <a href="#" class="cta-ghost">
+        <svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6 4.5 19 12 6 19.5Z"/></svg>
+        Watch Showreel
+      </a>
+    </div>
+
+    <div class="hero-stats rise" style="--d:1.3s">
+      <div class="stat-card liquid-glass">
+        <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <div class="num serif">6 Weeks</div>
+        <div class="cap">Average End-to-End Launch Time</div>
+      </div>
+      <div class="stat-card liquid-glass">
+        <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 4 5.7 4 9s-1.5 6.4-4 9c-2.5-2.6-4-5.7-4-9s1.5-6.4 4-9z"/></svg>
+        <div class="num serif">140+</div>
+        <div class="cap">Brands Shipped Across Four Continents</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="hero-trust rise" style="--d:1.4s">
+    <div class="trust-pill liquid-glass">Trusted by founders, operators, and creative directors worldwide</div>
+    <div class="trust-names serif">
+      <span>Aeon</span><span>Vela</span><span>Apex</span><span>Orbit</span><span>Zeno</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECTION 2 — CAPABILITIES ================= -->
+<section class="caps" id="capabilities">
+  <div class="video-fallback subtle" aria-hidden="true"></div>
+  <video class="bg-video" id="caps-video" autoplay muted loop playsinline preload="auto" src="assets/agency-capabilities.mp4" aria-hidden="true"></video>
+
+  <div class="caps-content">
+    <div class="caps-label">// Capabilities</div>
+    <h2 class="caps-heading serif bt-io" id="caps-heading">
+      <span class="blur-word" style="--i:0">Studio</span><span class="blur-word" style="--i:1">craft,</span><br>
+      <span class="blur-word" style="--i:2">end</span><span class="blur-word" style="--i:3">to</span><span class="blur-word" style="--i:4">end</span>
+    </h2>
+
+    <div class="caps-grid" id="caps-grid">
+
+      <div class="cap-card liquid-glass io-rise" style="--d:0s">
+        <div class="cap-top">
+          <div class="cap-icon liquid-glass">
+            <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4.5-4.5L6 21"/></svg>
+          </div>
+          <div class="cap-tags">
+            <span class="liquid-glass">Brand Systems</span>
+            <span class="liquid-glass">Art Direction</span>
+            <span class="liquid-glass">Visual Identity</span>
+            <span class="liquid-glass">Motion</span>
+          </div>
+        </div>
+        <div class="cap-spacer"></div>
+        <div class="cap-bottom">
+          <div class="cap-title serif">Design</div>
+          <p class="cap-body">We shape identities and interfaces that feel unmistakably yours — typographic systems, component libraries, and art-directed pages that scale without losing soul.</p>
+        </div>
+      </div>
+
+      <div class="cap-card liquid-glass io-rise" style="--d:.12s">
+        <div class="cap-top">
+          <div class="cap-icon liquid-glass">
+            <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M7 3v18"/><path d="M17 3v18"/><path d="M3 8h4"/><path d="M3 16h4"/><path d="M17 8h4"/><path d="M17 16h4"/><path d="M7 12h10"/></svg>
+          </div>
+          <div class="cap-tags">
+            <span class="liquid-glass">React</span>
+            <span class="liquid-glass">Next.js</span>
+            <span class="liquid-glass">Headless CMS</span>
+            <span class="liquid-glass">Edge-Ready</span>
+          </div>
+        </div>
+        <div class="cap-spacer"></div>
+        <div class="cap-bottom">
+          <div class="cap-title serif">Engineering</div>
+          <p class="cap-body">Production-grade front-ends built on modern stacks. Performant, accessible, and instrumented — with code your team will enjoy extending long after launch.</p>
+        </div>
+      </div>
+
+      <div class="cap-card liquid-glass io-rise" style="--d:.24s">
+        <div class="cap-top">
+          <div class="cap-icon liquid-glass">
+            <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.9 10.6c.8.7 1.2 1.5 1.4 2.4h5c.2-.9.6-1.7 1.4-2.4A6 6 0 0 0 12 3z"/></svg>
+          </div>
+          <div class="cap-tags">
+            <span class="liquid-glass">SEO</span>
+            <span class="liquid-glass">Analytics</span>
+            <span class="liquid-glass">A/B Testing</span>
+            <span class="liquid-glass">Retention</span>
+          </div>
+        </div>
+        <div class="cap-spacer"></div>
+        <div class="cap-bottom">
+          <div class="cap-title serif">Growth</div>
+          <p class="cap-body">Launch is the starting line. We partner with your team on conversion, content, and iteration loops that turn a beautiful site into a compounding asset.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var loopMode = /(\?|&|^)loop=1/.test(location.search) || location.search.indexOf("loop=1") !== -1;
+
+  /* ---------- Videos: fade in on loadeddata, fallback on error / no canplay in 4s ---------- */
+  function setupVideo(id){
+    var v = document.getElementById(id);
+    if(!v) return;
+    var ok = false;
+    function ready(){ if(ok) return; ok = true; v.classList.add("ready"); }
+    function fail(){ if(ok) return; v.classList.add("failed"); }
+    v.addEventListener("loadeddata", ready);
+    v.addEventListener("canplay", ready);
+    v.addEventListener("error", fail);
+    if(v.readyState >= 2) ready();
+    setTimeout(function(){ if(!ok) fail(); }, 4000);
+    /* nudge autoplay */
+    var p = v.play && v.play();
+    if(p && p.catch) p.catch(function(){});
+  }
+  setupVideo("hero-video");
+  setupVideo("caps-video");
+
+  /* ---------- IntersectionObserver reveals (section 2) ---------- */
+  var ioTargets = [].slice.call(document.querySelectorAll(".bt-io, .io-rise"));
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add("in");
+        if(!loopMode) io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.2});
+  ioTargets.forEach(function(t){ io.observe(t); });
+
+  /* ---------- Entrance gate ---------- */
+  function startEntrance(){
+    document.body.classList.add("anim");
+  }
+
+  function resetEntrance(){
+    document.body.classList.remove("anim");
+    ioTargets.forEach(function(t){ t.classList.remove("in"); });
+    /* force reflow so animations restart cleanly */
+    void document.body.offsetWidth;
+    document.body.classList.add("anim");
+  }
+
+  /* ---------- Timed smooth scroll ---------- */
+  function animateScroll(toY, duration, done){
+    if(reduced){ window.scrollTo(0, toY); if(done) done(); return; }
+    var fromY = window.pageYOffset || document.documentElement.scrollTop;
+    var start = null;
+    function ease(t){ return t < .5 ? 2*t*t : -1 + (4 - 2*t)*t; } /* easeInOutQuad */
+    function step(ts){
+      if(start === null) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      window.scrollTo(0, fromY + (toY - fromY) * ease(p));
+      if(p < 1) requestAnimationFrame(step);
+      else if(done) done();
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- Preview loop mode ---------- */
+  function runLoop(){
+    /* entrance is playing; hold 4s, then tour */
+    setTimeout(function(){
+      var bottom = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      animateScroll(bottom, 5000, function(){
+        setTimeout(function(){
+          animateScroll(0, 1500, function(){
+            resetEntrance();
+            runLoop();
+          });
+        }, 1500);
+      });
+    }, 4000);
+  }
+
+  startEntrance();
+
+  if(loopMode){
+    /* badge is appended after this script — hide it once the DOM is complete */
+    document.addEventListener("DOMContentLoaded", function(){
+      var badge = document.getElementById("bostrom-badge");
+      if(badge) badge.style.display = "none";
+    });
+    if(!reduced) runLoop();
+  }
+})();
+</script>
+
+<a href="../index.html#start" id="bostrom-badge" style="position:fixed;left:16px;bottom:16px;z-index:999;background:#D4F94F;color:#0A0A08;font:600 11px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:999px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.25);display:inline-flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:50%;background:#0A0A08"></span>Draft by Bostrom — get yours free</a>
+<script>if(/(^|[?&])loop=1/.test(location.search)){var _bb=document.getElementById('bostrom-badge');if(_bb)_bb.style.display='none';}</script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Voice Agents — Every call answered, 24/7 | Bostrom</title>
+<meta name="description" content="An AI voice agent that answers every call in seconds, sounds human, books appointments into your calendar and sends you the transcript. Nights, weekends, holidays. $1,997 setup, then $497/mo.">
+<meta property="og:title" content="AI Voice Agents — Every call answered, 24/7 | Bostrom">
+<meta property="og:description" content="Every missed call is a customer calling your competitor. The agent makes sure that never happens.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23D4F94F'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-style='italic' font-size='42' text-anchor='middle' fill='%230A0A08'%3Eb%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="nav-sentinel"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="container">
+    <a class="wordmark" href="index.html">bostrom<i>.</i></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="index.html#process">How it works</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li class="has-drop">
+          <a href="index.html#services" aria-haspopup="true">Services</a>
+          <div class="drop">
+            <div class="drop-inner">
+              <a href="index.html#pricing">Websites <span class="dm">from $997</span></a>
+              <a href="voice-agents.html" aria-current="page">AI voice agents <span class="dm">you're here</span></a>
+              <a href="chatbots.html">AI chatbots <span class="dm">$997</span></a>
+              <a href="cold-email.html">Cold email outreach <span class="dm">from $3,490</span></a>
+            </div>
+          </div>
+        </li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a class="btn js-book" href="#book">Book a call</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu">
+  <span class="mono">Menu</span>
+  <a href="index.html">Home</a>
+  <a href="chatbots.html">AI chatbots</a>
+  <a href="cold-email.html">Cold email</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#faq">FAQ</a>
+  <a href="#book" style="color:var(--lime)">Book a call</a>
+</div>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero ce-hero" id="top">
+  <div class="aurora aurora-1" aria-hidden="true"></div>
+  <div class="aurora aurora-2" aria-hidden="true"></div>
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow fade-up" data-scramble>AI Voice Agent · Answers as your business</span>
+      <h1>
+        <span class="line"><span class="line-in">Every missed call is</span></span>
+        <span class="line"><span class="line-in">a customer calling</span></span>
+        <span class="line"><span class="line-in"><span class="serif-a">your competitor.</span></span></span>
+      </h1>
+      <p class="lead fade-up d1">Small businesses miss more than half their calls — and most callers who hit voicemail never call back. Our voice agent answers in seconds, sounds human, books the appointment into your calendar and sends you the transcript. Nights, weekends, holidays.</p>
+      <div class="hero-cta fade-up d2">
+        <a class="btn js-book" href="#book">Book a 15-min call <span class="arr">→</span></a>
+        <a class="link-u" href="#math">See what it catches</a>
+      </div>
+      <div class="hero-micro mono fade-up d3">
+        <span>Live in under a week</span>
+        <span>You approve every script</span>
+        <span>Human handoff built in</span>
+      </div>
+      <div class="stat-row fade-up d3">
+        <div class="stat"><b><span data-count="100">0</span>%</b><span class="sl">Of calls answered</span></div>
+        <div class="stat"><b>0</b><span class="sl">Put on hold, ever</span></div>
+        <div class="stat"><b>24/7</b><span class="sl">Nights, weekends, holidays</span></div>
+      </div>
+    </div>
+    <div class="ce-visual fade-up d2">
+      <div class="voice-demo">
+        <canvas class="wave" id="wave" width="600" height="104" aria-hidden="true"></canvas>
+        <div class="voice-lines" id="voice-lines">
+          <div class="vl caller"><b>Caller</b><span>"Hi — are you open? I need something looked at this week."</span></div>
+          <div class="vl agent"><b>Agent</b><span>"We can do that. Tuesday 2:00 or Thursday 4:30 — which suits?"</span></div>
+          <div class="vl caller"><b>Caller</b><span>"Tuesday works. How much roughly?"</span></div>
+          <div class="vl agent"><b>Agent</b><span>"From $120 — you're booked for 2:00. Confirmation on its way. <span class="ok">✓</span>"</span></div>
+        </div>
+      </div>
+      <p class="ce-caption mono">Taken at 9:14 PM — <b>after closing</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TICKER ================= -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div>
+      <span>Answers in two rings</span><em>✦</em>
+      <span>Books straight into your calendar</span><em>✦</em>
+      <span>Nights, weekends, holidays</span><em>✦</em>
+      <span>You approve every script</span><em>✦</em>
+      <span>Transcript of every call</span><em>✦</em>
+      <span>Hands off to a human when it matters</span><em>✦</em>
+      <span>Live in under a week</span><em>✦</em>
+    </div>
+    <div>
+      <span>Answers in two rings</span><em>✦</em>
+      <span>Books straight into your calendar</span><em>✦</em>
+      <span>Nights, weekends, holidays</span><em>✦</em>
+      <span>You approve every script</span><em>✦</em>
+      <span>Transcript of every call</span><em>✦</em>
+      <span>Hands off to a human when it matters</span><em>✦</em>
+      <span>Live in under a week</span><em>✦</em>
+    </div>
+  </div>
+</div>
+
+<!-- ================= INCLUDED ================= -->
+<section class="sect" id="included">
+  <div class="container">
+    <div class="sect-head" data-reveal>
+      <span class="eyebrow">01 — What you get</span>
+      <h2>A receptionist that never eats, sleeps or <span class="serif-a">quits.</span></h2>
+      <p class="lead">Not an answering service reading from a card, and not a phone tree. An agent trained on your business, working from scripts you approved — doing everything below on every single call.</p>
+    </div>
+    <ul class="inc-grid" data-reveal>
+      <li><span><b>Answers every call, 24/7</b> — first ring, no hold music, no "your call is important to us"</span></li>
+      <li><span><b>Books appointments directly</b> — checks your real availability and confirms into Google, Outlook, Calendly or your booking system</span></li>
+      <li><span><b>Qualifies every caller</b> — asks the questions you'd ask: what they need, when, where, budget — so you only call back people worth calling</span></li>
+      <li><span><b>Answers your FAQs in a natural voice</b> — prices, hours, services, directions, trained on your business</span></li>
+      <li><span><b>Transcript &amp; summary of every call</b> — in your inbox before the caller has hung up their coat</span></li>
+      <li><span><b>Human handoff when it matters</b> — transfers live to your cell for the calls that need you, takes a message when they don't</span></li>
+      <li><span><b>Your scripts, your rules</b> — you approve every word it's allowed to say; it never improvises prices or promises</span></li>
+      <li><span><b>Screens the junk</b> — telemarketers and robocalls handled politely and kept off your phone</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= THE MATH ================= -->
+<section class="sect" id="math" style="padding-top:0">
+  <div class="container split">
+    <div data-reveal>
+      <span class="eyebrow">02 — The math</span>
+      <h2>Your voicemail is a <span class="serif-a">goodbye.</span></h2>
+      <p class="lead">The research on small-business phones is brutal: more than half of inbound calls go unanswered, and the vast majority of callers who reach voicemail never call back — they just dial the next result on Google.</p>
+      <p class="more"><b>You already paid for that ring.</b> The ads, the SEO, the referrals — everything you spend on marketing exists to make the phone ring. The agent's only job is to make sure that money isn't wasted the second it does. One saved booking a month usually covers it.</p>
+    </div>
+    <div class="score-card" data-reveal>
+      <div class="score-head"><b>Call log — this week</b><span class="live-chip"><i></i>Live</span></div>
+      <div id="score-rows">
+        <div class="score-row" data-verdict="hot" data-label="Booked"><span class="who">Tue 7:42 PM</span><span class="why">New customer — asked prices, took the slot</span><span class="tag">Ringing…</span></div>
+        <div class="score-row" data-verdict="hot" data-label="Booked"><span class="who">Sat 9:03 AM</span><span class="why">Urgent job — quoted &amp; scheduled for Monday</span><span class="tag">Ringing…</span></div>
+        <div class="score-row" data-verdict="warm" data-label="Answered"><span class="who">Sun 2:15 PM</span><span class="why">Opening hours &amp; directions — handled</span><span class="tag">Ringing…</span></div>
+        <div class="score-row" data-verdict="rej" data-label="Screened"><span class="who">Mon 12:31 PM</span><span class="why">Telemarketer — politely shown the door</span><span class="tag">Ringing…</span></div>
+      </div>
+      <div class="score-foot">Every one of these used to be <b>a voicemail</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section class="sect" id="process" style="padding-top:0">
+  <div class="container">
+    <div class="sect-head" data-reveal>
+      <span class="eyebrow">03 — The setup</span>
+      <h2>Live in under <span class="serif-a">a week.</span></h2>
+      <p class="lead">You don't install anything, you don't train anything. You talk to us once, approve the scripts, and forward your number.</p>
+    </div>
+    <div class="steps">
+      <div class="step" data-reveal>
+        <span class="step-num">01</span>
+        <div>
+          <h3>Kickoff — 30 minutes</h3>
+          <p>Your services, prices, hours, FAQs, booking rules and the questions you always ask callers. That's everything we need.</p>
+        </div>
+        <span class="chip">Day 0</span>
+      </div>
+      <div class="step" data-reveal>
+        <span class="step-num">02</span>
+        <div>
+          <h3>Scripts &amp; voice build</h3>
+          <p>We write every call flow — greetings, questions, answers, edge cases — and you approve every word. Then you pick the voice from a shortlist.</p>
+        </div>
+        <span class="chip">Days 1–3</span>
+      </div>
+      <div class="step" data-reveal>
+        <span class="step-num">03</span>
+        <div>
+          <h3>Test week</h3>
+          <p>The agent takes real test calls. You listen to the recordings, we tune anything that isn't right, and we connect your calendar.</p>
+        </div>
+        <span class="chip">Days 3–7</span>
+      </div>
+      <div class="step" data-reveal>
+        <span class="step-num">04</span>
+        <div>
+          <h3>Go live</h3>
+          <p>Forward your existing number — you keep it — and the agent starts answering. We monitor every call and keep tuning monthly.</p>
+        </div>
+        <span class="chip">Week 1 →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="sect" id="pricing">
+  <div class="container">
+    <div class="sect-head" data-reveal>
+      <span class="eyebrow">04 — Pricing</span>
+      <h2>Simple, public, <span class="serif-a">fair.</span></h2>
+      <p class="lead">One setup fee, one flat monthly. No per-minute meters, no surprise usage bills.</p>
+    </div>
+    <div class="price-card ce-price" data-reveal>
+      <span class="t">AI Voice Agent</span>
+      <h3>Your phone, answered forever</h3>
+      <div class="amt"><b>$1,997</b><span>setup</span></div>
+      <div class="amt-mo mono">then $497 / month</div>
+      <p>Setup covers everything: script writing, voice selection, calendar integration and a full test week before a single real customer hears it. The monthly covers the calls, the monitoring, the tuning and every script update as your business changes.</p>
+      <ul class="feat">
+        <li>Answers 24/7 — nights, weekends, holidays</li>
+        <li>Books appointments straight into your calendar</li>
+        <li>Qualifies callers and answers FAQs in a natural voice</li>
+        <li>Transcript &amp; summary of every call, instantly</li>
+        <li>Live transfer to a human whenever it should</li>
+        <li>Script updates &amp; monthly tuning included</li>
+      </ul>
+      <a class="btn js-book" href="#book">Book a 15-min call <span class="arr">→</span></a>
+      <p class="pn mono">Month to month after setup · Live in under a week · You approve every script</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="sect" id="faq" style="padding-top:0">
+  <div class="container">
+    <div class="faq-grid">
+    <div class="sect-head" data-reveal>
+      <span class="eyebrow">05 — FAQ</span>
+      <h2>Fair <span class="serif-a">questions.</span></h2>
+      <p class="lead">Everything people ask before putting an agent on their phone line. Anything else? <a class="link-u" href="mailto:hello@bostromagency.com">Email us.</a></p>
+    </div>
+    <div class="faq-list" data-reveal>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Will callers know they're talking to AI?</span><span class="ic" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>The voice is natural enough that most callers don't ask — they just want their question answered and their slot booked. If someone does ask, the agent is honest about it, and anyone who wants a human gets transferred to you immediately. No tricks, no pretending to be "Sandra from the front desk."</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>What happens when it can't answer something?</span><span class="ic" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>It never improvises. If a question falls outside the scripts you approved, it either transfers the call live to you or takes a detailed message — and you get the full transcript either way. Gaps get added to the script, so the same question is covered next time.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Do I keep my phone number?</span><span class="ic" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>Yes. Your number stays yours — you simply forward it to the agent, and you can turn forwarding off any time you want to answer calls yourself. Prefer a separate dedicated line? We set that up too.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Which calendars can it book into?</span><span class="ic" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>Google Calendar, Outlook, Calendly and most industry booking systems. It checks your real availability before offering times, so no double bookings.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>How does it learn my business?</span><span class="ic" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>One 30-minute kickoff: your services, prices, hours, FAQs and booking rules. We turn that into call scripts, you approve every word, and it takes a week of test calls before it ever talks to a real customer.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>What if it makes a mistake?</span><span class="ic" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>You'll see it — every call comes with a transcript and summary. Flag anything that's off and the fix goes into the script the same day. In practice, mistakes drop to near zero after the test week, because it only says what you've approved.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Is there a contract?</span><span class="ic" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>Month to month after setup. If the agent isn't obviously paying for itself in bookings, cancel — your number was always yours, so you just switch the forwarding off.</p></div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BOOK ================= -->
+<section class="sect" id="book" style="padding-top:0">
+  <div class="container">
+    <div class="ce-cta-panel" data-reveal>
+      <div class="aurora" aria-hidden="true"></div>
+      <span class="eyebrow" style="position:relative">06 — Start</span>
+      <h2 style="position:relative">Stop feeding customers to your <span class="serif-a">voicemail.</span></h2>
+      <p class="lead">Fifteen minutes. Tell us what your calls look like and we'll tell you honestly what the agent would do with them — and what it can't do.</p>
+      <div class="ce-cta-actions">
+        <a class="btn js-book" href="#book">Book a 15-min call <span class="arr">→</span></a>
+        <a class="link-u" href="mailto:hello@bostromagency.com">or email hello@bostromagency.com</a>
+      </div>
+      <p class="ce-ps">P.S. An answered phone works even better with a website that makes it ring. <a class="link-u" href="index.html#start">Get a free draft of yours →</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container foot-top">
+    <div class="foot-col">
+      <a class="wordmark" href="index.html">bostrom<i>.</i></a>
+      <p style="color:var(--dim);font-size:14px;margin-top:14px;max-width:30ch">Websites you see before you pay. Plus the AI agents and outbound to make them work harder.</p>
+    </div>
+    <div class="foot-links">
+      <div class="foot-col">
+        <span class="mono">Site</span>
+        <a href="index.html#process">How it works</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+      <div class="foot-col">
+        <span class="mono">Services</span>
+        <a href="index.html#pricing">Websites</a>
+        <a href="voice-agents.html">AI voice agents</a>
+        <a href="chatbots.html">AI chatbots</a>
+        <a href="cold-email.html">Cold email outreach</a>
+      </div>
+      <div class="foot-col">
+        <span class="mono">Contact</span>
+        <a href="mailto:hello@bostromagency.com">hello@bostromagency.com</a>
+        <a href="index.html#start">Get my free draft</a>
+      </div>
+    </div>
+  </div>
+  <a class="giant" href="#top" aria-label="Bostrom — back to top">bostrom<i>.</i></a>
+  <div class="container foot-bottom">
+    <span class="mono">© 2026 Bostrom</span>
+    <span class="mono">This site is our own draft. Yours is next.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+/* ============ CONFIG — EDIT THESE ============ */
+var BOOKING_URL = "https://calendly.com/apexplainervideos/bostrom"; // reused from current site — consider a Bostrom-branded Calendly
+if (BOOKING_URL) document.querySelectorAll('.js-book').forEach(function(a){ a.href = BOOKING_URL; a.target = '_blank'; a.rel = 'noopener'; });
+
+var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ LOAD ORCHESTRATION ============ */
+window.addEventListener('load', function(){ requestAnimationFrame(function(){ document.body.classList.add('loaded'); }); });
+setTimeout(function(){ document.body.classList.add('loaded'); }, 1200); // fallback
+
+/* ============ NAV ============ */
+var nav = document.getElementById('nav');
+new IntersectionObserver(function(e){ nav.classList.toggle('scrolled', !e[0].isIntersecting); })
+  .observe(document.getElementById('nav-sentinel'));
+
+var toggle = document.getElementById('nav-toggle'), menu = document.getElementById('mobile-menu');
+toggle.addEventListener('click', function(){
+  var open = menu.classList.toggle('open');
+  document.body.classList.toggle('menu-open', open);
+  toggle.setAttribute('aria-expanded', open);
+});
+menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){
+  menu.classList.remove('open'); document.body.classList.remove('menu-open'); toggle.setAttribute('aria-expanded','false');
+});});
+
+/* ============ REVEALS ============ */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+},{threshold:0.18, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+
+/* ============ SCRAMBLE (eyebrow) ============ */
+function scramble(el){
+  if (rm) return;
+  var chars = '!<>-_\\/[]{}—=+*^?#';
+  var final = el.textContent, frame = 0, total = 26;
+  (function tick(){
+    var out = '';
+    for (var i=0;i<final.length;i++){
+      var reveal = (i/final.length)*total*0.7;
+      out += frame > reveal ? final[i] : (final[i]===' '||final[i]==='·') ? final[i] : chars[Math.floor(Math.random()*chars.length)];
+    }
+    el.textContent = out;
+    if (frame++ < total) requestAnimationFrame(tick); else el.textContent = final;
+  })();
+}
+document.querySelectorAll('[data-scramble]').forEach(function(el){
+  setTimeout(function(){ scramble(el); }, 300);
+});
+
+/* ============ VISIBILITY-GATED DEMOS ============ */
+function whenVisible(el, cb){
+  new IntersectionObserver(function(e,obs){ if(e[0].isIntersecting){ cb(); obs.disconnect(); } },{threshold:0.35}).observe(el);
+}
+
+/* --- voice waveform + transcript --- */
+var wave = document.getElementById('wave');
+whenVisible(wave, function(){
+  var ctx = wave.getContext('2d'), t = 0, speaking = 0, running = true;
+  var vio = new IntersectionObserver(function(e){ running = e[0].isIntersecting; if(running) draw(); },{threshold:0.05});
+  vio.observe(wave);
+  function draw(){
+    if (!running || rm) return;
+    ctx.clearRect(0,0,600,104);
+    var bars = 56;
+    for (var i=0;i<bars;i++){
+      var base = Math.sin(t*0.06 + i*0.55)*0.5 + Math.sin(t*0.11 + i*0.22)*0.5;
+      var amp = speaking ? (14 + Math.abs(base)*32 + Math.random()*6) : (5 + Math.abs(base)*7);
+      var x = i*(600/bars) + 3;
+      ctx.fillStyle = speaking ? '#D4F94F' : 'rgba(212,249,79,0.35)';
+      ctx.fillRect(x, 52-amp/2, 4, amp);
+    }
+    t++;
+    requestAnimationFrame(draw);
+  }
+  if (rm){ // static bars
+    var c2 = wave.getContext('2d');
+    for (var i=0;i<56;i++){ var a = 8+Math.abs(Math.sin(i*0.5))*26; c2.fillStyle='#D4F94F'; c2.fillRect(i*(600/56)+3, 52-a/2, 4, a); }
+  } else { draw(); }
+  var lines = document.querySelectorAll('#voice-lines .vl');
+  function playScript(){
+    lines.forEach(function(l){ l.classList.remove('on'); });
+    var i = 0;
+    (function next(){
+      if (i >= lines.length){ speaking = 0; setTimeout(playScript, 3600); return; }
+      var line = lines[i];
+      speaking = line.classList.contains('agent') ? 1 : 0;
+      line.classList.add('on');
+      i++;
+      setTimeout(next, 1700);
+    })();
+  }
+  if (rm){ lines.forEach(function(l){ l.classList.add('on'); }); } else playScript();
+});
+
+/* --- call log demo --- */
+var scoreRows = document.querySelectorAll('#score-rows .score-row');
+whenVisible(document.getElementById('score-rows'), function(){
+  function run(){
+    scoreRows.forEach(function(r){
+      r.classList.remove('on','rejected');
+      var t = r.querySelector('.tag'); t.className = 'tag'; t.textContent = 'Ringing…';
+    });
+    scoreRows.forEach(function(r, i){
+      setTimeout(function(){ r.classList.add('on'); }, 400 + i*650);
+      setTimeout(function(){
+        var t = r.querySelector('.tag');
+        t.classList.add(r.dataset.verdict); t.textContent = r.dataset.label;
+        if (r.dataset.verdict === 'rej') r.classList.add('rejected');
+      }, 1400 + i*850);
+    });
+    setTimeout(run, 1400 + scoreRows.length*850 + 4600);
+  }
+  if (rm){
+    scoreRows.forEach(function(r){
+      r.classList.add('on');
+      var t = r.querySelector('.tag'); t.classList.add(r.dataset.verdict); t.textContent = r.dataset.label;
+      if (r.dataset.verdict === 'rej') r.classList.add('rejected');
+    });
+  } else run();
+});
+
+/* ============ COUNT-UPS ============ */
+function fmt(v, dec){ return v.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+document.querySelectorAll('[data-count]').forEach(function(el){
+  var target = parseFloat(el.dataset.count), dec = +(el.dataset.dec||0);
+  if (rm){ el.textContent = fmt(target, dec); return; }
+  whenVisible(el, function(){
+    var start = null, dur = 1500;
+    (function step(ts){
+      if (!start) start = ts;
+      var p = Math.min((ts-start)/dur, 1);
+      var v = p === 1 ? target : target*(1-Math.pow(2,-10*p));
+      el.textContent = fmt(v, dec);
+      if (p < 1) requestAnimationFrame(step);
+    })(performance.now());
+  });
+});
+
+/* ============ FAQ ============ */
+document.querySelectorAll('.faq-item').forEach(function(item){
+  var q = item.querySelector('.faq-q'), a = item.querySelector('.faq-a');
+  q.addEventListener('click', function(){
+    var open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(o){
+      o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight = null;
+      o.querySelector('.faq-q').setAttribute('aria-expanded','false');
+    });
+    if (!open){
+      item.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+      q.setAttribute('aria-expanded','true');
+    }
+  });
+});
+})();
+</script>
+</body>
+</html>

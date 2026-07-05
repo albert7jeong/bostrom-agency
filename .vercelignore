@@ -1,0 +1,10 @@
+# Copy deck & docs — not for the public site
+*.md
+
+# Self-contained artifact duplicates (published separately on claude.ai)
+bostrom-artifact.html
+bostrom-voice-artifact.html
+bostrom-chatbot-artifact.html
+bostrom-coldemail-artifact.html
+
+.DS_Store

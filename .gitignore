@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+.vercel/
+
+# Generated, self-contained artifact copies (published separately on claude.ai)
+bostrom-artifact.html
+bostrom-voice-artifact.html
+bostrom-chatbot-artifact.html
+bostrom-coldemail-artifact.html

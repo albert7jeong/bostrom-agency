@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questly — Get cited. Effortlessly.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' rx='52' fill='white'/%3E%3Cpath fill='%23111827' transform='translate(38,38) scale(0.7)' d='M 144 256 L 27.598 256 L 144 139.598 Z M 256 207.5 L 200 256 L 200 56 L 0 56 L 48 0 L 256 0 Z M 0 204.402 L 0 112 L 92.402 112 Z'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://db.onlinewebfonts.com/c/bb5de19d87c09a95216dc6ccd96e37c6?family=Nimbus+Sans+TW01">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Nimbus Sans TW01', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #111827;
+    background: #F6FBEF;
+  }
+  button { font: inherit; border: 0; background: none; cursor: pointer; color: inherit; }
+  a { text-decoration: none; color: inherit; }
+  input { font: inherit; }
+  img, svg { display: block; }
+
+  .ic { flex: 0 0 auto; }
+
+  /* ============ HERO SECTION ============ */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-image: url('assets/questly-bg.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  .hero.nobg {
+    background-image:
+      radial-gradient(ellipse 70% 50% at 50% -5%, rgba(255, 246, 190, 0.9), rgba(255, 246, 190, 0) 70%),
+      linear-gradient(180deg, #DFF3E4 0%, #F6FBEF 100%);
+  }
+  .grass {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    z-index: 10;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* ============ NAVBAR ============ */
+  .navbar {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    gap: 16px;
+  }
+  @media (min-width: 640px)  { .navbar { padding-left: 32px; padding-right: 32px; } }
+  @media (min-width: 768px)  { .navbar { padding-top: 20px; padding-bottom: 20px; } }
+  @media (min-width: 1024px) { .navbar { padding-left: 40px; padding-right: 40px; } }
+
+  .brand { display: inline-flex; align-items: center; gap: 9px; color: #111827; }
+  .brand svg { width: 20px; height: 20px; }
+  .brand .wordmark { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #111827; }
+
+  .nav-links {
+    display: none;
+    align-items: center;
+    gap: 32px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @media (min-width: 768px) { .nav-links { display: flex; } }
+  .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #374151;
+    transition: color .15s ease;
+  }
+  .nav-links a:hover { color: #111827; }
+  .nav-links .ic { width: 14px; height: 14px; }
+
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .nav-cta {
+    background: #111827;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 999px;
+    transition: background .15s ease;
+    white-space: nowrap;
+  }
+  @media (min-width: 640px) { .nav-cta { padding: 8px 20px; } }
+  .nav-cta:hover { background: #1f2937; }
+
+  .hamburger {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #111827;
+    background: rgba(255,255,255,.5);
+    transition: background .15s ease;
+  }
+  .hamburger:hover { background: rgba(255,255,255,.8); }
+  .hamburger .ic { width: 18px; height: 18px; }
+  .hamburger .ic-x { display: none; }
+  .hamburger.open .ic-menu { display: none; }
+  .hamburger.open .ic-x { display: block; }
+  @media (min-width: 768px) { .hamburger { display: none; } }
+
+  .mobile-menu {
+    display: none;
+    position: absolute;
+    left: 16px; right: 16px;
+    top: 100%;
+    border-radius: 16px;
+    background: rgba(255,255,255,.8);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 0 1px #E5E7EB, 0 12px 32px rgba(0,0,0,.08);
+    padding: 12px 20px;
+    z-index: 30;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block;
+    font-size: 15px;
+    color: #374151;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(17,24,39,.08);
+  }
+  .mobile-menu a:last-child { border-bottom: 0; }
+  @media (min-width: 768px) { .mobile-menu { display: none !important; } }
+
+  /* ============ HERO CONTENT ============ */
+  .spacer { flex: 1 1 0; }
+
+  .hero-content {
+    position: relative;
+    z-index: 20;
+    text-align: center;
+    padding: 24px 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .hero h1 {
+    color: #111827;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-size: 40px;
+  }
+  @media (min-width: 640px)  { .hero h1 { font-size: 60px; } }
+  @media (min-width: 1024px) { .hero h1 { font-size: 70px; } }
+  @media (min-width: 1280px) { .hero h1 { font-size: 80px; } }
+  .hero h1 span { display: block; }
+
+  .search-form {
+    margin-top: 24px;
+    width: 100%;
+    max-width: 576px;
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 0 1px #E5E7EB;
+    border-radius: 999px;
+    padding: 6px 6px 6px 20px;
+    gap: 8px;
+  }
+  .search-form input {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    outline: none;
+    font-size: 15px;
+    color: #111827;
+  }
+  @media (min-width: 640px) { .search-form input { font-size: 16px; } }
+  .search-form input::placeholder { color: #6B7280; }
+  .search-submit {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: #111827;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .15s ease, background .15s ease;
+  }
+  @media (min-width: 640px) { .search-submit { width: 40px; height: 40px; } }
+  .search-submit:hover { transform: scale(1.05); }
+  .search-submit:active { transform: scale(.95); }
+  .search-submit .ic { width: 18px; height: 18px; }
+
+  .hero-desc {
+    margin-top: 16px;
+    color: #4B5563;
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 448px;
+  }
+  @media (min-width: 640px)  { .hero-desc { margin-top: 20px; font-size: 16px; } }
+  @media (min-width: 1024px) { .hero-desc { font-size: 18px; } }
+  .hero-desc .inline-ic {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: -2px;
+  }
+  .hero-desc .inline-ic .ic { width: 15px; height: 15px; }
+
+  .hero-ctas {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  @media (min-width: 640px) { .hero-ctas { margin-top: 20px; } }
+  .btn {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 999px;
+    transition: background .15s ease, box-shadow .15s ease, color .15s ease;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  .btn-primary { background: #111827; color: #fff; }
+  .btn-primary:hover { box-shadow: 0 8px 24px rgba(17,24,39,.28); background: #1f2937; }
+  .btn-secondary { color: #374151; box-shadow: inset 0 0 0 1px #D1D5DB; }
+  .btn-secondary:hover { background: #F3F4F6; }
+
+  /* ============ DASHBOARD MOCKUP ============ */
+  .mock-container {
+    position: relative;
+    z-index: 0;
+    width: 92%;
+    max-width: 896px;
+    margin: 40px auto -40px;
+  }
+  @media (min-width: 640px)  { .mock-container { width: 84%; margin-bottom: -80px; } }
+  @media (min-width: 1024px) { .mock-container { width: 72%; margin-bottom: -128px; } }
+
+  .mock-frame { position: relative; overflow: visible; }
+  .mock-inner {
+    width: 896px;
+    transform-origin: top left;
+    text-align: left;
+  }
+  .mock-chrome {
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    background: #1a1a1c;
+    box-shadow: 0 -20px 80px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.1);
+  }
+
+  .titlebar {
+    background: #242427;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lights { display: flex; align-items: center; gap: 7px; margin-right: 4px; }
+  .light { width: 10px; height: 10px; border-radius: 50%; }
+  .light-r { background: #ff5f57; }
+  .light-y { background: #febc2e; }
+  .light-g { background: #28c840; }
+  .tb-icons { display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.4); }
+  .tb-icons .ic { width: 14px; height: 14px; }
+  .url-pill {
+    flex: 1 1 auto;
+    max-width: 340px;
+    margin: 0 auto;
+    background: #1a1a1c;
+    border-radius: 10px;
+    color: rgba(255,255,255,.6);
+    font-size: 11px;
+    padding: 5px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .url-pill .ic { width: 12px; height: 12px; opacity: .7; }
+
+  .mock-body { display: flex; }
+
+  .sidebar {
+    width: 22%;
+    flex: 0 0 22%;
+    border-right: 1px solid rgba(255,255,255,.05);
+    background: #1e1e21;
+    padding: 14px 12px;
+  }
+  .sb-top { display: flex; align-items: center; justify-content: space-between; color: rgba(255,255,255,.7); margin-bottom: 16px; }
+  .sb-top .logo { width: 16px; height: 16px; }
+  .sb-top .ic { width: 13px; height: 13px; color: rgba(255,255,255,.4); }
+  .sb-ws { display: flex; align-items: center; gap: 7px; margin-bottom: 14px; }
+  .sb-ws-badge {
+    width: 16px; height: 16px;
+    border-radius: 4px;
+    background: #e8553f;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sb-ws-label { font-size: 10px; color: rgba(255,255,255,.8); }
+  .sb-nav { display: flex; flex-direction: column; gap: 2px; margin-bottom: 16px; }
+  .sb-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 10px;
+    color: rgba(255,255,255,.6);
+    padding: 5px 6px;
+    border-radius: 5px;
+  }
+  .sb-nav-item.active { background: rgba(255,255,255,.06); color: rgba(255,255,255,.85); }
+  .sb-nav-item .ic { width: 11px; height: 11px; }
+  .sb-recent-label {
+    font-size: 8px;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.3);
+    margin: 0 6px 7px;
+  }
+  .sb-recent { display: flex; flex-direction: column; gap: 2px; }
+  .sb-recent-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    color: rgba(255,255,255,.5);
+    padding: 4px 6px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .sb-recent-item span { overflow: hidden; text-overflow: ellipsis; }
+  .sb-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(40,200,64,.7); flex: 0 0 auto; }
+
+  .mock-main { flex: 1 1 auto; padding: 14px 16px; min-width: 0; }
+
+  .mm-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mm-avatar {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: #e8553f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+  .mm-avatar svg { width: 16px; height: 16px; }
+  .mm-title { font-size: 14px; color: #fff; line-height: 1.2; }
+  .mm-sub { font-size: 10px; color: rgba(255,255,255,.45); margin-top: 2px; }
+  .mm-generate {
+    margin-left: auto;
+    background: rgba(255,255,255,.1);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 10px;
+    color: rgba(255,255,255,.9);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .mm-generate .ic { width: 10px; height: 10px; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-radius: 12px;
+    background: rgba(255,255,255,.03);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.05);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .stat { padding: 12px 14px; }
+  .stat + .stat { border-left: 1px solid rgba(255,255,255,.05); }
+  .stat-label { font-size: 8px; letter-spacing: .08em; color: rgba(255,255,255,.35); }
+  .stat-value { font-size: 20px; color: #fff; margin-top: 4px; line-height: 1.2; }
+  .stat-sub { font-size: 9px; color: rgba(255,255,255,.4); margin-top: 2px; }
+
+  .subjects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .subject {
+    border-radius: 8px;
+    background: rgba(255,255,255,.03);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.05);
+    padding: 12px;
+  }
+  .subject-title { font-size: 11px; color: rgba(255,255,255,.85); }
+  .subject-sub { font-size: 9px; color: rgba(255,255,255,.4); margin-top: 3px; }
+
+  .inbox {
+    margin-top: 12px;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.05);
+    overflow: hidden;
+  }
+  .inbox-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 84px 76px;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 10px;
+    color: rgba(255,255,255,.7);
+  }
+  .inbox-row + .inbox-row { border-top: 1px solid rgba(255,255,255,.05); }
+  .inbox-head {
+    font-size: 8px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+    background: rgba(255,255,255,.02);
+  }
+  .st-drafting { color: rgba(254,188,46,.8); }
+  .st-ready { color: rgba(40,200,64,.8); }
+  .st-queued { color: rgba(255,255,255,.4); }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+    to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+  }
+  @keyframes fade-down {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(64px) scale(.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  body.anim .a-up {
+    animation: fade-up .9s cubic-bezier(.22,1,.36,1) both;
+    animation-delay: var(--d, 0ms);
+  }
+  body.anim .a-down {
+    animation: fade-down .7s cubic-bezier(.22,1,.36,1) both;
+  }
+  body.anim .a-rise {
+    animation: hero-rise 1.1s cubic-bezier(.22,1,.36,1) both;
+    animation-delay: 620ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body.anim .a-up,
+    body.anim .a-down,
+    body.anim .a-rise {
+      animation: none !important;
+    }
+    * { transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Icon symbol defs (lucide, stroke-width 2) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></symbol>
+    <symbol id="i-panel-left" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></symbol>
+    <symbol id="i-rotate-cw" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36z"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+    <symbol id="i-list-todo" viewBox="0 0 24 24"><rect x="3" y="5" width="6" height="6" rx="1"/><path d="m3 17 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></symbol>
+    <symbol id="q-logo" viewBox="0 0 256 256"><path fill="currentColor" stroke="none" d="M 144 256 L 27.598 256 L 144 139.598 Z M 256 207.5 L 200 256 L 200 56 L 0 56 L 48 0 L 256 0 Z M 0 204.402 L 0 112 L 92.402 112 Z"/></symbol>
+  </defs>
+</svg>
+
+<section class="hero" id="hero">
+
+  <!-- NAVBAR -->
+  <header class="navbar a-down">
+    <a class="brand" href="#">
+      <svg viewBox="0 0 256 256" fill="currentColor"><use href="#q-logo"/></svg>
+      <span class="wordmark">Questly</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#">Toolkit
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chevron-down"/></svg>
+      </a>
+      <a href="#">Plans</a>
+      <a href="#">News</a>
+    </nav>
+
+    <div class="nav-right">
+      <a class="nav-cta" href="#">Get Started</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <svg class="ic ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-menu"/></svg>
+        <svg class="ic ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#">Toolkit</a>
+      <a href="#">Plans</a>
+      <a href="#">News</a>
+    </div>
+  </header>
+
+  <div class="spacer"></div>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content">
+    <h1>
+      <span class="a-up" style="--d:0ms">Get cited.</span>
+      <span class="a-up" style="--d:100ms">Effortlessly.</span>
+    </h1>
+
+    <form class="search-form a-up" style="--d:220ms" onsubmit="return false">
+      <input type="text" placeholder="What makes content rank in AI search?" aria-label="Ask a question">
+      <button class="search-submit" type="submit" aria-label="Submit">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up"/></svg>
+      </button>
+    </form>
+
+    <p class="hero-desc a-up" style="--d:340ms">
+      Ship articles that answer actual customer questions —<br>
+      and be seen on <span class="inline-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sparkles"/></svg></span>&nbsp;ChatGPT
+    </p>
+
+    <div class="hero-ctas a-up" style="--d:460ms">
+      <a class="btn btn-primary" href="#">Try It Free</a>
+      <a class="btn btn-secondary" href="#">Talk to sales</a>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- DASHBOARD MOCKUP -->
+  <div class="mock-container a-rise">
+    <div class="mock-frame" id="mock-frame">
+      <div class="mock-inner" id="mock-inner">
+        <div class="mock-chrome">
+
+          <!-- Title bar -->
+          <div class="titlebar">
+            <div class="lights">
+              <span class="light light-r"></span>
+              <span class="light light-y"></span>
+              <span class="light light-g"></span>
+            </div>
+            <div class="tb-icons">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-panel-left"/></svg>
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chevron-left"/></svg>
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chevron-right"/></svg>
+            </div>
+            <div class="url-pill">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-monitor"/></svg>
+              questly.ai
+            </div>
+            <div class="tb-icons">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-rotate-cw"/></svg>
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-plus"/></svg>
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-copy"/></svg>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="mock-body">
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+              <div class="sb-top">
+                <svg class="logo" viewBox="0 0 256 256" fill="currentColor"><use href="#q-logo"/></svg>
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-grid"/></svg>
+              </div>
+              <div class="sb-ws">
+                <span class="sb-ws-badge">C</span>
+                <span class="sb-ws-label">CareNest</span>
+              </div>
+              <nav class="sb-nav">
+                <span class="sb-nav-item active">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-compass"/></svg>
+                  Uncover
+                </span>
+                <span class="sb-nav-item">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-layers"/></svg>
+                  Subjects
+                </span>
+                <span class="sb-nav-item">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-list-todo"/></svg>
+                  Inbox
+                </span>
+              </nav>
+              <div class="sb-recent-label">RECENT</div>
+              <div class="sb-recent">
+                <div class="sb-recent-item"><span class="sb-dot"></span><span>Signs Dad Needs Daily Help</span></div>
+                <div class="sb-recent-item"><span class="sb-dot"></span><span>Fall-Proofing a Bathroom</span></div>
+                <div class="sb-recent-item"><span class="sb-dot"></span><span>What Home Care Costs in 2026</span></div>
+                <div class="sb-recent-item"><span class="sb-dot"></span><span>Talking to Parents About Care</span></div>
+              </div>
+            </aside>
+
+            <!-- Main -->
+            <div class="mock-main">
+              <div class="mm-header">
+                <div class="mm-avatar">
+                  <svg viewBox="0 0 256 256" fill="currentColor"><use href="#q-logo"/></svg>
+                </div>
+                <div>
+                  <div class="mm-title">CareNest</div>
+                  <div class="mm-sub">Home-care agency — Portland, OR</div>
+                </div>
+                <button class="mm-generate">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sparkles"/></svg>
+                  Generate
+                </button>
+              </div>
+
+              <div class="stats">
+                <div class="stat">
+                  <div class="stat-label">RELEASED</div>
+                  <div class="stat-value">62</div>
+                  <div class="stat-sub">Posts indexed</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-label">BREADTH</div>
+                  <div class="stat-value">12</div>
+                  <div class="stat-sub">Subject groups</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-label">REMAINING</div>
+                  <div class="stat-value">412</div>
+                  <div class="stat-sub">Ready to draft</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-label">MAX REACH</div>
+                  <div class="stat-value">3,156,200</div>
+                  <div class="stat-sub">Searches a month</div>
+                </div>
+              </div>
+
+              <div class="subjects">
+                <div class="subject">
+                  <div class="subject-title">Elder Care</div>
+                  <div class="subject-sub">24 posts</div>
+                </div>
+                <div class="subject">
+                  <div class="subject-title">Mobility</div>
+                  <div class="subject-sub">18 posts</div>
+                </div>
+                <div class="subject">
+                  <div class="subject-title">Home Safety</div>
+                  <div class="subject-sub">20 posts</div>
+                </div>
+              </div>
+
+              <div class="inbox">
+                <div class="inbox-row inbox-head">
+                  <span>Question</span><span>Volume</span><span>Difficulty</span><span>Status</span>
+                </div>
+                <div class="inbox-row">
+                  <span>How much does 24/7 in-home care cost?</span><span>9,900</span><span>Low</span><span class="st-drafting">Drafting</span>
+                </div>
+                <div class="inbox-row">
+                  <span>Medicare coverage for home care?</span><span>6,600</span><span>Med</span><span class="st-drafting">Drafting</span>
+                </div>
+                <div class="inbox-row">
+                  <span>How to choose a home care agency</span><span>4,400</span><span>Low</span><span class="st-ready">Ready</span>
+                </div>
+                <div class="inbox-row">
+                  <span>Home safety checklist for seniors</span><span>3,600</span><span>Low</span><span class="st-ready">Ready</span>
+                </div>
+                <div class="inbox-row">
+                  <span>Signs of caregiver burnout</span><span>2,900</span><span>Med</span><span class="st-queued">Queued</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grass overlay -->
+  <img class="grass" id="grass" src="assets/grass.png" alt="" draggable="false"
+       onerror="this.style.display='none'">
+</section>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var loopMode = /(^|[?&])loop=1/.test(location.search);
+
+  /* ---- entrance animations gate ---- */
+  document.body.classList.add('anim');
+
+  /* ---- background image fallback ---- */
+  var probe = new Image();
+  probe.onerror = function () {
+    document.getElementById('hero').classList.add('nobg');
+  };
+  probe.src = 'assets/questly-bg.jpg';
+
+  /* ---- mobile menu ---- */
+  var burger = document.getElementById('hamburger');
+  var menu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  document.addEventListener('click', function (e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) {
+      menu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* ---- mockup scale-to-fit (896px design width) ---- */
+  var frame = document.getElementById('mock-frame');
+  var inner = document.getElementById('mock-inner');
+  var DESIGN_W = 896;
+  function rescale() {
+    var w = frame.clientWidth;
+    if (!w) return;
+    var s = w / DESIGN_W;
+    inner.style.transform = 'scale(' + s + ')';
+    frame.style.height = (inner.offsetHeight * s) + 'px';
+  }
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(rescale).observe(frame);
+  } else {
+    window.addEventListener('resize', rescale);
+  }
+  window.addEventListener('load', rescale);
+  rescale();
+
+  /* ---- preview loop mode ---- */
+  if (loopMode) {
+    var badge = document.getElementById('bostrom-badge');
+    if (badge) badge.style.display = 'none';
+  }
+  if (loopMode && !reduced) {
+    var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    var animScroll = function (to, dur) {
+      return new Promise(function (resolve) {
+        var start = window.scrollY || window.pageYOffset;
+        var delta = to - start;
+        if (Math.abs(delta) < 1 || dur <= 0) { window.scrollTo(0, to); resolve(); return; }
+        var t0 = performance.now();
+        function step(t) {
+          var p = Math.min(1, (t - t0) / dur);
+          var e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; /* easeInOutQuad */
+          window.scrollTo(0, start + delta * e);
+          if (p < 1) requestAnimationFrame(step); else resolve();
+        }
+        requestAnimationFrame(step);
+      });
+    };
+    var replayEntrance = function () {
+      document.body.classList.remove('anim');
+      void document.body.offsetWidth; /* force reflow */
+      document.body.classList.add('anim');
+    };
+    (async function runLoop() {
+      /* first pass: entrance already playing on load */
+      for (;;) {
+        try {
+          await wait(1800); /* let entrance animations finish (~1.73s max) */
+          await wait(4000); /* hold */
+          var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          if (maxScroll > 2) {
+            await animScroll(maxScroll, 5000);
+            await wait(1000);
+            await animScroll(0, 1500);
+          } else {
+            await wait(1000);
+          }
+          replayEntrance();
+        } catch (err) {
+          await wait(2000);
+        }
+      }
+    })();
+  }
+})();
+</script>
+
+<a href="../index.html#start" id="bostrom-badge" style="position:fixed;left:16px;bottom:16px;z-index:999;background:#D4F94F;color:#0A0A08;font:600 11px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:999px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.25);display:inline-flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:50%;background:#0A0A08"></span>Draft by Bostrom — get yours free</a>
+<script>if(/(^|[?&])loop=1/.test(location.search)){var _bb=document.getElementById('bostrom-badge');if(_bb)_bb.style.display='none';}</script>
+</body>
+</html>
